@@ -32,7 +32,7 @@ void excte_cmd_nt_fond(char *command, int line_number)
  * excte_cmd_wth_slsh - execute cmd with slash
  *@command: cmd
  *@arguments: args array
- *@ln_ctr: line count useful 4 files
+ *@line_ctr: line count useful 4 files
  *@envp: env vars
  */
 void excte_cmd_wth_slsh(char *command, char *arguments[],
