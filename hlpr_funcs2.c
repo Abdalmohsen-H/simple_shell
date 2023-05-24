@@ -55,9 +55,6 @@ void my_c_exit(char **args)
 		}
 		ext_status = my_c_atoi(args[1]);
 	}
-	if (*args)
-	{free(*args);
-	}
 	if (command != NULL)
 	{free(command);
 		command = NULL;
