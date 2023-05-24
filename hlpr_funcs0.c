@@ -22,7 +22,7 @@ void excte_cmd_nt_fond(char *command, int line_number)
 		perror("Error: Command not found or write failure");
 	}
 	if (command != NULL)
-	{free(command);
+	{/*free(command);*/
 		command = NULL;
 	}
 	exit(EXIT_FAILURE);
