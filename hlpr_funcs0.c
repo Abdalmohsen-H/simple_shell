@@ -41,7 +41,7 @@ void excte_cmd_wth_slsh(char *command, char *arguments[],
 
 	ln_ctr = line_ctr;
 	if (my_c_strcmp(command, "/bin/env") == 0)
-		my_c_env(envp);
+		my_c_env(envp, arguments, line_ctr);
 	if (access(command, X_OK) == 0)
 	{
 		pid = fork();

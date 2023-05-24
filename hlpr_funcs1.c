@@ -38,16 +38,26 @@ void execute_cmd(char *command, char *argv[])
 /**
  *my_c_env - print all anv items
  *@envp: array of envs vars
+ *@argus: args
+ *@line_cntr: line count
  */
-void my_c_env(char *envp[])
+void my_c_env(char *envp[], char *argus[], int line_cntr)
 {size_t len;
 	int i;
-	/*loop via envp till a NULL pointer is found*/
-	for (i = 0; envp[i] != NULL; i++)
+
+	if (argus[1])
 	{
-		len = my_c_strlen(envp[i]);
-		write(STDOUT_FILENO, envp[i], len);
-		write(STDOUT_FILENO, "\n", 1);
+		too_mny_args(argus[0], line_cntr);
+	}
+	else
+	{
+		/*loop via envp till a NULL pointer is found*/
+		for (i = 0; envp[i] != NULL; i++)
+		{
+			len = my_c_strlen(envp[i]);
+			write(STDOUT_FILENO, envp[i], len);
+			write(STDOUT_FILENO, "\n", 1);
+		}
 	}
 }
 

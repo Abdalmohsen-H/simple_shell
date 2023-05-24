@@ -13,9 +13,9 @@ void comnd_no_slsh(char *command, char *envp[], char *arguments[])
 	int indx;
 
 	if (my_c_strcmp(command, "env") == 0)
-		my_c_env(envp);
+		my_c_env(envp, arguments, ln_ctr);
 	if (my_c_strcmp(command, "exit") == 0)
-		my_c_exit(arguments);
+		my_c_exit(arguments, ln_ctr);
 	while (path_token != NULL)
 	{my_c_strcpy(full_path, "/bin/");
 		my_c_strcat(full_path, command);

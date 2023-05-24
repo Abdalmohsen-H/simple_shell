@@ -38,36 +38,42 @@ void exit_bltn_error(char *command, char *arg)
 /**
  *my_c_exit - act like exit bultn cmd on shl
  *@args: args of exit
+ *@line_contr: line count
  */
-void my_c_exit(char **args)
+void my_c_exit(char **args, int line_contr)
 {char *s;
 	int t = 0, ext_status = 0;
 
-	if (args[1] != NULL)
-	{s = args[1];
-		while ((*(s + t) < '0' || *(s + t) > '9') && (*(s + t) != '\0'))
-		{
-			if (*(s + t) != '-')
+	if (args[1] != NULL && args[2])
+		too_mny_args(args[0], line_contr);
+	else
+	{
+		if (args[1] != NULL)
+		{s = args[1];
+			while ((*(s + t) < '0' || *(s + t) > '9') && (*(s + t) != '\0'))
 			{
-				exit_bltn_error(args[0], args[1]);
+				if (*(s + t) != '-')
+				{
+					exit_bltn_error(args[0], args[1]);
+				}
+				t++;
 			}
-			t++;
+			ext_status = my_c_atoi(args[1]);
 		}
-		ext_status = my_c_atoi(args[1]);
+		if (command != NULL)
+		{free(command);
+			command = NULL;
+		}
+		if (copyln != NULL)
+		{free(copyln);
+			copyln = NULL;
+		}
+		if (outarr != NULL)
+		{free(outarr);
+			outarr = NULL;
+		}
+		exit(ext_status);
 	}
-	if (command != NULL)
-	{free(command);
-		command = NULL;
-	}
-	if (copyln != NULL)
-	{free(copyln);
-		copyln = NULL;
-	}
-	if (outarr != NULL)
-	{free(outarr);
-		outarr = NULL;
-	}
-	exit(ext_status);
 }
 
 
