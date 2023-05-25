@@ -15,18 +15,25 @@ void file_arg(int argc, char *argv[], char *envp[], int *is_intractv)
 
 	*is_intractv = 0;
 	if (argc != 2)
-	{
-		write(STDOUT_FILENO, "Usage: ", 7);
+	{write(STDOUT_FILENO, "Usage: ", 7);
 		write(STDOUT_FILENO, argv[0], my_c_strlen(argv[0]));
 		write(STDOUT_FILENO, " <filename>\n", 12);
 		return;
 	}
 	if (fildscrptr == -1)
 	{
-		write(STDERR_FILENO, "Failed to open the input file: \n", 31);
-		return;
+		if (errno == ENOENT)
+		{write(STDERR_FILENO, prog_name, my_c_strlen(prog_name));
+			write(STDERR_FILENO, ": 0: Can't open ", 16);
+			write(STDERR_FILENO, argv[1], my_c_strlen(argv[1]));
+			exit(127);
+		}
+		exit(1);
 	}
-	while ((fl_data_byts = read(fildscrptr, bufr, Buf_Sze - 1)) > 0)
+	fl_data_byts = read(fildscrptr, bufr, Buf_Sze - 1);
+	if (fl_data_byts == 0)/*empty File - no lines*/
+		exit(0);
+	while (fl_data_byts > 0)
 	{bufr[fl_data_byts] = '\0'; /* Null-terminate the buffer*/
 		line = bufr;/* Handle each line*/
 		file_lines(line, envp);

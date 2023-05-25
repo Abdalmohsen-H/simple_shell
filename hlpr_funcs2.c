@@ -12,9 +12,9 @@ void exit_bltn_error(char *command, char *arg)
 	len += write(STDERR_FILENO, prog_name, my_c_strlen(prog_name));
 	len += write(STDERR_FILENO, ": ", 2);
 	len += write(STDERR_FILENO, command, my_c_strlen(command));
-	len += write(STDERR_FILENO, ": ", 2);
+	len += write(STDERR_FILENO, ": Illegal number: ", 18);
 	len += write(STDERR_FILENO, arg, my_c_strlen(arg));
-	len += write(STDERR_FILENO, ": numeric argument required\n", 28);
+	len += write(STDERR_FILENO, "\n", 1);
 
 	if (len < 0)
 	{
@@ -32,7 +32,7 @@ void exit_bltn_error(char *command, char *arg)
 	{free(outarr);
 		outarr = NULL;
 	}
-	exit(EXIT_FAILURE);
+	exit(2);
 }
 
 /**
@@ -51,13 +51,7 @@ void my_c_exit(char **args, int line_contr)
 		if (args[1] != NULL)
 		{s = args[1];
 			while ((*(s + t) < '0' || *(s + t) > '9') && (*(s + t) != '\0'))
-			{
-				if (*(s + t) != '-')
-				{
-					exit_bltn_error(args[0], args[1]);
-				}
-				t++;
-			}
+				exit_bltn_error(args[0], args[1]);
 			ext_status = my_c_atoi(args[1]);
 		}
 		if (command != NULL)
