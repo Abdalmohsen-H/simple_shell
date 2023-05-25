@@ -28,7 +28,7 @@ void intractv(char *envp[])
 			if (errno == 0 || errno == EINVAL || errno == EOF)
 			{clean(&command);
 				write(STDOUT_FILENO, "\n", 1);
-				exit(EXIT_SUCCESS);
+				exit(127);
 			}
 			else/*Error while reading from stream*/
 			{clean(&command);
