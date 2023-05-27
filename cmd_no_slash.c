@@ -45,3 +45,40 @@ void comnd_no_slsh(char *command, char *envp[], char *arguments[])
 		path_token = strtok(NULL, ":");
 	}
 }
+
+/**
+ *my_c_cd - my_c_chngdirectory
+ *@arguments: args list
+ */
+void my_c_cd(char *arguments[])
+{char *dir, *hom_direc, **envarry, *crnt_dirc = getcwd(NULL, 0);
+
+	for (envarry = environ; *envarry != NULL; envarry++)
+	{/* get usr home directry*/
+		if (my_c_strncmp(*envarry, "HOME=", 5) == 0)
+		{hom_direc = my_c_strchr(*envarry, '=') + 1;
+			break;
+		}
+	}
+	if (arguments[1] == NULL)/*user didn't input arg with cd*/
+	{dir = hom_direc;
+		chdir(hom_direc);
+	}
+	else
+	{
+		if (my_c_strcmp(arguments[1], "-") == 0)/*user used "-" input arg with cd*/
+		{dir = crnt_dirc;
+			chdir(crnt_dirc);
+		}
+		else /*change dir to what user entered*/
+		{dir = arguments[1];
+			chdir(arguments[1]);
+		}
+	}
+	if (write(STDOUT_FILENO, dir, my_c_strlen(dir)) < 0)
+	{perror("write error on cd func");
+		exit(1);
+	}
+	write(STDOUT_FILENO, "\n", 1);
+	fflush(stdout);
+}

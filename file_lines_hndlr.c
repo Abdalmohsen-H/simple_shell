@@ -32,7 +32,5 @@ void file_lines(char *line, char *envp[])
 		}
 	}
 	if (outarr != NULL)
-	{free(outarr);
 		outarr = NULL;
-	}
 }

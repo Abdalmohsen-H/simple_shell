@@ -39,9 +39,10 @@ void hndle_chld_prcs(char *command_line, char *envp[])
 				return;
 			if (command[0] == '/')
 				excte_cmd_wth_slsh(command, arguments, ln_ctr, envp);
+			else if (my_c_strcmp(command, "cd") == 0)
+				my_c_cd(arguments);
 			else
 				comnd_no_slsh(command, envp, arguments);
 		}
 	}
 }
-

@@ -59,4 +59,5 @@ void file_arg(int argc, char *argv[], char *envp[], int *is_intractv);
 void sgnl_hndlr(int sig_numbr);
 void intractv(char *envp[]);
 int main(int argc, char *argv[], char *envp[]);
+void my_c_cd(char *arguments[]);
 #endif
